@@ -32,6 +32,8 @@ const SidebarTitle = styled.div`
     color: ${props => props.theme.currentColorTheme.colorThemeLeftNavLinks};
 `;
 
+// This is a comment
+
 class Dashboard extends React.Component {
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     constructor(props) {
