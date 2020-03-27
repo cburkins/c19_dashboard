@@ -67,12 +67,12 @@ class C19CardGrid extends React.PureComponent {
 
                 <WidgetText
                     position="span 3 / span 4"
-                    widget_title="Disclaimer Note (Brittle Data)"
-                    text="NOTE: This data is very dynamic, and seems to be rather brittle (breaks often)."></WidgetText>
+                    widget_title="Disclaimer Note (Experimental)"
+                    text="NOTE: This dashboard is very experimental, and the data source very dynamic (they change the data structure often).  As a result, this whole setup is fairly brittle, but when it works, the data is useful. It's useful for me as I think through all this, so figured I would share with others.   (Chad)"></WidgetText>
                 <WidgetText
                     position="span 3 / span 4"
                     widget_title="Disclaimer Note (PA Data)"
-                    text="NOTE: As of 3/25, it appears that the data for the state of PA is currently inaccurate (it's very low).  I've open an issue with the developer of the data source to have this repaired"></WidgetText>
+                    text="NOTE: As of 3/25, it appears that the data for the state of PA is currently inaccurate (it's very low).  I've open an issue with the developer of the data source to have this repaired."></WidgetText>
                 <WidgetChartJSC19LineChartCoronaVirusScraper
                     position="span 6 / span 12"
                     desired_locations={country_locations}
