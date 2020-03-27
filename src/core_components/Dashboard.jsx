@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 
 // project imports
 import Demo2CardGrid from "../cardgrids/Demo2CardGrid";
+import C19CardGrid from "../cardgrids/C19CardGrid";
 import NumberFormat from "react-number-format";
 import RotatedLeftEdgeTitle from "./RotatedLeftEdgeTitle";
 
@@ -149,8 +150,6 @@ class Dashboard extends React.Component {
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
     render() {
-        console.log("Dashboard.jsx: ", process.env);
-
         return (
             <HashRouter>
                 {/* HashRouter can have only one child element, so adding a <div> */}
@@ -170,6 +169,7 @@ class Dashboard extends React.Component {
                             <SidebarTitle>Available Dashboards:</SidebarTitle>
                             <LinkSidebar to="/">Home</LinkSidebar>
                             <LinkSidebar to="/demo2-dashboard">Demo Dashboard</LinkSidebar>
+                            <LinkSidebar to="/c19-dashboard">C19 Dashboard</LinkSidebar>
                         </div>
                     </div>
 
@@ -212,8 +212,17 @@ class Dashboard extends React.Component {
                                 exact
                                 render={() => <Demo2CardGrid changeParentPageTitle={this.changePageTitle} refreshInterval={8000} />}
                             />
+                            {/* Define a route to a new dashboard */}
+                            <Route
+                                path="/c19-dashboard"
+                                exact
+                                render={() => (
+                                    <C19CardGrid changeParentPageTitle={this.changePageTitle} changeRefreshInterval={this.changeRefreshInterval} />
+                                )}
+                            />
+
                             {/* Define the DEFAULT route when no path to a dashboard is given */}
-                            <Route path="/" exact render={() => <Redirect to="/demo2-dashboard" />} />
+                            <Route path="/" exact render={() => <Redirect to="/c19-dashboard" />} />
                         </div>
                     </div>
                 </SidebarDiv>

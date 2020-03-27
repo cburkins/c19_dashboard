@@ -92,7 +92,6 @@ WidgetText.propTypes = {
     id: PropTypes.string,
     position: PropTypes.string.isRequired,
     color: PropTypes.string,
-    desired_locations: PropTypes.array.isRequired,
     widget_title: PropTypes.string,
     per_capita: PropTypes.bool,
     x_axis_min: PropTypes.string,
