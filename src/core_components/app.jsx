@@ -6,8 +6,6 @@ import Dashboard from "./Dashboard";
 import "../scss/main.scss";
 import { ThemeProvider } from "styled-components";
 
-// console.log("process.env", process.env);
-
 // Diagnostic tool that describes why React component updated (rendered), put helpful logging to concole
 if (process.env.NODE_ENV !== "production") {
 }
