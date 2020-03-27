@@ -36,6 +36,7 @@ const VersionTitleNestedInner = styled.div`
 
 // Create a react functional component ---------
 const RotatedLeftEdgeTitle = props => {
+    console.log("props in RotatedLeftEdge:", props);
     // Based on env (e.g. "test" or "local") choose a font color
     let envColor = props.environment.includes("local")
         ? "yellow"
