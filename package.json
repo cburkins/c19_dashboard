@@ -1,5 +1,6 @@
 {
     "name": "c19_dashboard",
+    "//": "Comment: Check .env for how this gets converted to REACT_APP_VERSION",
     "version": "0.1.0",
     "private": true,
     "homepage": ".",
