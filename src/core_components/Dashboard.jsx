@@ -12,6 +12,8 @@ import RotatedLeftEdgeTitle from "./RotatedLeftEdgeTitle";
 
 import styled from "styled-components/macro";
 
+// This is a comment
+
 const SidebarDiv = styled.div`
     color: ${props => props.theme.currentColorTheme.colorThemeLeftNavLinks};
 `;
