@@ -127,7 +127,7 @@ class WidgetChartJSC19LineChartCoronaVirusScraper extends React.Component {
         // };
         let casesByDate = await this.callCoronaScraperAndExtractData(jmespath.search(desiredLocations, "[*].name"));
 
-        console.log("casesByDate", casesByDate);
+        // console.log("casesByDate", casesByDate);
 
         // Create array to serve as x-axis labels on chart.js chart  (be sure to sort in date ascending order first)
         let xAxisLabels = Object.keys(casesByDate)
@@ -208,8 +208,13 @@ class WidgetChartJSC19LineChartCoronaVirusScraper extends React.Component {
                                 time: {
                                     unit: "day",
                                     displayFormats: {
-                                        month: "MM DD"
-                                    },
+                                        day: "MMM D"
+                                    }
+                                },
+                                ticks: {
+                                    fontColor: this.props.theme.currentColorTheme.colorThemeFontDefault,
+                                    minRotation: 75,
+                                    fontSize: 16,
                                     min: new Date(this.props.x_axis_min)
                                 },
                                 offset: false,
@@ -218,11 +223,6 @@ class WidgetChartJSC19LineChartCoronaVirusScraper extends React.Component {
                                     // Length and spacing of dashed line
                                     borderDash: [1, 3],
                                     display: true // this will toggle vertical lines
-                                },
-                                ticks: {
-                                    fontColor: this.props.theme.currentColorTheme.colorThemeFontDefault,
-                                    minRotation: 75,
-                                    fontSize: 16
                                 }
                             }
                         ],

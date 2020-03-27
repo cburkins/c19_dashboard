@@ -2,8 +2,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import PubSub from "pubsub-js";
-import { Line } from "react-chartjs-2";
-import axios from "axios";
 
 // project imports
 import CardContainer from "../core_components/CardContainer";
