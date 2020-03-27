@@ -1,0 +1,42 @@
+// The entire page.   Creates the grid to contain the title (at top), navigation (on left), and the container for the widgets
+.page_container {
+    display: grid;
+    grid-template-columns: 3vw 1fr;
+    grid-template-rows: 4.5vw 1fr;
+    // width: 100%;
+    grid-gap: 0;
+}
+
+// The title container at the top of the page.  Needs to span two columns
+.title_container {
+    grid-area: 1 / 2 / span 1 / span 1;
+    padding: 1rem 1rem 1rem 2rem;
+
+    .title {
+        font-family: "Lato", "Courier New";
+        font-size: 3vw;
+        color: var(--colorThemePageTitle);
+        text-shadow: 2px 2px 4px #000000;
+    }
+}
+
+// Container on the left for all the navigation
+.fixedSideBar_container {
+    grid-area: 2 / 1 / span 1 / span 1;
+    padding: 0.4rem;
+    font-size: 1.3vw;
+    font-family: "Stint Ultra Condensed", "Courier New";
+
+    .navButtonsLeft {
+        background-color: var(--colorThemeLeftNavButtons);
+        margin-left: 0.6rem;
+        width: 2.5vw;
+        height: 2.5vw;
+        margin-bottom: 0.9vw;
+    }
+}
+
+// Contains all the widgets
+.centerPanel_container {
+    grid-area: 2 / 2 / span 1 / span 1;
+}

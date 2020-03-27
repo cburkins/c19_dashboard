@@ -1,0 +1,12 @@
+// Thinking I should drop this concept, although I did copy into CardContainer, but doesn't apppear to work
+// Create a series of fonts, each one 15% bigger than the last
+$previous: 0.2;
+@for $i from 0 through 30 {
+    .Font#{$i}x {
+        font-size: $previous + vw;
+        $new: $previous * 1.15;
+        $previous: $new;
+    }
+}
+
+// -----------------------------------------------------------
