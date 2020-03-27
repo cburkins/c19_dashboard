@@ -192,6 +192,9 @@ class WidgetChartJSC19LineChartCoronaVirusScraper extends React.Component {
                 options={{
                     responive: true,
                     maintainAspectRatio: false,
+                    animation: {
+                        duration: 3000
+                    },
                     legend: {
                         labels: {
                             fontColor: this.props.theme.currentColorTheme.colorThemeFontDefault,

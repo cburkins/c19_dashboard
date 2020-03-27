@@ -16,7 +16,7 @@ class C19CardGrid extends React.PureComponent {
         super(props);
 
         // Update our parent (the Dashboard) with a new page title
-        props.changeParentPageTitle("C19 Dashboard");
+        props.changeParentPageTitle("Covid-19 Case Number Dashboard");
         props.changeRefreshInterval(3000 * 1000);
     }
 
@@ -76,7 +76,7 @@ class C19CardGrid extends React.PureComponent {
                 <WidgetChartJSC19LineChartCoronaVirusScraper
                     position="span 6 / span 12"
                     desired_locations={country_locations}
-                    widget_title="C19 Cases by Country (Long history)"
+                    widget_title="By Country (Long history)"
                     per_capita={false}
                     x_axis_min="2020-01-21 00:00:00"
                 />
@@ -84,56 +84,56 @@ class C19CardGrid extends React.PureComponent {
                 <WidgetChartJSC19LineChartCoronaVirusScraper
                     position="span 6 / span 6"
                     desired_locations={country_locations}
-                    widget_title="C19 Cases by Country"
+                    widget_title="By Country"
                     per_capita={false}
                     x_axis_min="2020-03-15 00:00:00"
                 />
                 <WidgetChartJSC19LineChartCoronaVirusScraper
                     position="span 6 / span 6"
                     desired_locations={country_locations}
-                    widget_title="C19 Cases by Country (per 1000 people)"
+                    widget_title="By Country (per 1000 people)"
                     per_capita={true}
                     x_axis_min="2020-03-15 00:00:00"
                 />
                 <WidgetChartJSC19LineChartCoronaVirusScraper
                     position="span 6 / span 6"
                     desired_locations={state_locations}
-                    widget_title="C19 Cases by US State"
+                    widget_title="By US State"
                     per_capita={false}
                     x_axis_min="2020-03-15 00:00:00"
                 />
                 <WidgetChartJSC19LineChartCoronaVirusScraper
                     position="span 6 / span 6"
                     desired_locations={state_locations}
-                    widget_title="C19 Cases by US State (per 1000 people)"
+                    widget_title="By US State (per 1000 people)"
                     per_capita={true}
                     x_axis_min="2020-03-15 00:00:00"
                 />
                 <WidgetChartJSC19LineChartCoronaVirusScraper
                     position="span 6 / span 6"
                     desired_locations={pa_county_locations}
-                    widget_title="C19 Cases by PA County"
+                    widget_title="By PA County"
                     per_capita={false}
                     x_axis_min="2020-03-15 00:00:00"
                 />
                 <WidgetChartJSC19LineChartCoronaVirusScraper
                     position="span 6 / span 6"
                     desired_locations={pa_county_locations}
-                    widget_title="C19 Cases by PA County (per 1000 people)"
+                    widget_title="By PA County (per 1000 people)"
                     per_capita={true}
                     x_axis_min="2020-03-15 00:00:00"
                 />
                 <WidgetChartJSC19LineChartCoronaVirusScraper
                     position="span 6 / span 6"
                     desired_locations={nj_county_locations}
-                    widget_title="C19 Cases by NJ County"
+                    widget_title="By NJ County"
                     per_capita={false}
                     x_axis_min="2020-03-15 00:00:00"
                 />
                 <WidgetChartJSC19LineChartCoronaVirusScraper
                     position="span 6 / span 6"
                     desired_locations={nj_county_locations}
-                    widget_title="C19 Cases by NJ County (per 1000 people)"
+                    widget_title="By NJ County (per 1000 people)"
                     per_capita={true}
                     x_axis_min="2020-03-15 00:00:00"
                 />
