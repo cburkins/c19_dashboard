@@ -127,7 +127,7 @@ class WidgetChartJSC19LineChartCoronaVirusScraper extends React.Component {
         // };
         let casesByDate = await this.callCoronaScraperAndExtractData(jmespath.search(desiredLocations, "[*].name"));
 
-        // console.log("casesByDate", casesByDate);
+        console.log("casesByDate", casesByDate);
 
         // Create array to serve as x-axis labels on chart.js chart  (be sure to sort in date ascending order first)
         let xAxisLabels = Object.keys(casesByDate)
@@ -237,7 +237,7 @@ class WidgetChartJSC19LineChartCoronaVirusScraper extends React.Component {
                                 ticks: {
                                     fontColor: this.props.theme.currentColorTheme.colorThemeFontDefault,
                                     suggestedMin: 0,
-                                    // suggestedMax: 200,
+                                    suggestedMax: this.props.suggested_max,
                                     fontSize: 16
                                 },
                                 scaleLabel: {
@@ -292,7 +292,8 @@ WidgetChartJSC19LineChartCoronaVirusScraper.defaultProps = {
     ],
     widget_title: "C19 Cases By PA Counties",
     per_capita: false,
-    x_axis_min: "2020-02-10 00:00:00"
+    x_axis_min: "2020-02-10 00:00:00",
+    suggested_max: null
 };
 
 // Force the caller to include the proper attributes
@@ -304,7 +305,8 @@ WidgetChartJSC19LineChartCoronaVirusScraper.propTypes = {
     desired_locations: PropTypes.array.isRequired,
     widget_title: PropTypes.string,
     per_capita: PropTypes.bool,
-    x_axis_min: PropTypes.string
+    x_axis_min: PropTypes.string,
+    suggested_max: PropTypes.number
 };
 
 // If we (this file) get "imported", this is what they'll be given

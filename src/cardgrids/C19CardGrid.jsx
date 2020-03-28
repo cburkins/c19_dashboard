@@ -16,7 +16,7 @@ class C19CardGrid extends React.PureComponent {
         super(props);
 
         // Update our parent (the Dashboard) with a new page title
-        props.changeParentPageTitle("Covid-19 Case Number Dashboard");
+        props.changeParentPageTitle("C19 Dashboard");
         props.changeRefreshInterval(3000 * 1000);
     }
 
@@ -72,15 +72,16 @@ class C19CardGrid extends React.PureComponent {
                 <WidgetText
                     position="span 3 / span 4"
                     widget_title="Disclaimer Note (PA Data)"
-                    text="NOTE: As of 3/25, it appears that the data for the state of PA is currently inaccurate (it's very low).  I've open an issue with the developer of the data source to have this repaired."></WidgetText>
+                    text="NOTE: As of 3/25, it appears that the data for the state of PA is currently inaccurate (it's very low).  I've open an issue with the developer of the data source to have this repaired"></WidgetText>
                 <WidgetChartJSC19LineChartCoronaVirusScraper
                     position="span 6 / span 12"
                     desired_locations={country_locations}
-                    widget_title="By Country (Long history)"
+                    widget_title="C19 Cases by Country (Long history)"
                     per_capita={false}
                     x_axis_min="2020-01-21 00:00:00"
                 />
 
+                {/* Country */}
                 <WidgetChartJSC19LineChartCoronaVirusScraper
                     position="span 6 / span 6"
                     desired_locations={country_locations}
@@ -95,6 +96,8 @@ class C19CardGrid extends React.PureComponent {
                     per_capita={true}
                     x_axis_min="2020-03-15 00:00:00"
                 />
+
+                {/* State */}
                 <WidgetChartJSC19LineChartCoronaVirusScraper
                     position="span 6 / span 6"
                     desired_locations={state_locations}
@@ -109,12 +112,15 @@ class C19CardGrid extends React.PureComponent {
                     per_capita={true}
                     x_axis_min="2020-03-15 00:00:00"
                 />
+
+                {/* PA County */}
                 <WidgetChartJSC19LineChartCoronaVirusScraper
                     position="span 6 / span 6"
                     desired_locations={pa_county_locations}
                     widget_title="By PA County"
                     per_capita={false}
                     x_axis_min="2020-03-15 00:00:00"
+                    suggested_max={1600}
                 />
                 <WidgetChartJSC19LineChartCoronaVirusScraper
                     position="span 6 / span 6"
@@ -122,13 +128,16 @@ class C19CardGrid extends React.PureComponent {
                     widget_title="By PA County (per 1000 people)"
                     per_capita={true}
                     x_axis_min="2020-03-15 00:00:00"
+                    suggested_max={2.0}
                 />
+                {/* NJ County */}
                 <WidgetChartJSC19LineChartCoronaVirusScraper
                     position="span 6 / span 6"
                     desired_locations={nj_county_locations}
                     widget_title="By NJ County"
                     per_capita={false}
                     x_axis_min="2020-03-15 00:00:00"
+                    suggested_max={1600}
                 />
                 <WidgetChartJSC19LineChartCoronaVirusScraper
                     position="span 6 / span 6"
@@ -136,6 +145,7 @@ class C19CardGrid extends React.PureComponent {
                     widget_title="By NJ County (per 1000 people)"
                     per_capita={true}
                     x_axis_min="2020-03-15 00:00:00"
+                    suggested_max={2.0}
                 />
             </CardGrid>
         );
@@ -148,7 +158,10 @@ class C19CardGrid extends React.PureComponent {
 
 C19CardGrid.propTypes = {
     changeParentPageTitle: PropTypes.func.isRequired,
-    changeRefreshInterval: PropTypes.func.isRequired
+    changeRefreshInterval: PropTypes.func.isRequired,
+    boldchat_instance: PropTypes.string.isRequired,
+    boardId: PropTypes.string.isRequired,
+    leankit_instance: PropTypes.string.isRequired
 };
 
 // Set default props in case they aren't passed to us by the caller
