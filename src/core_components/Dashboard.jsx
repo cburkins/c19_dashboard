@@ -194,8 +194,8 @@ class Dashboard extends React.Component {
                             </Link>
 
                             {/* Show the time remaining until the next refresh */}
-                            <div style={{ padding: "6px", fontSize: "2vw" }}>{this.state.refreshRemainingMs / 1000}s</div>
-                            <div style={{ padding: "6px", fontSize: "2vw" }}>
+                            <div style={{ padding: "6px", fontSize: "1.7vw" }}>{this.state.refreshRemainingMs / 1000}s</div>
+                            <div style={{ padding: "6px", fontSize: "1.7vw" }}>
                                 <NumberFormat
                                     value={this.state.reloadRemainingMs / 1000 / 60}
                                     decimalScale={1}
