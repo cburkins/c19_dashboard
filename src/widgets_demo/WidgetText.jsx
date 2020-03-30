@@ -69,7 +69,7 @@ class WidgetText extends React.Component {
                 {/* Title */}
                 <div className="single-num-title">{this.props.widget_title}</div>
                 <div className="single-num-subtitle"></div>
-                <div style={{ fontSize: "1.0vw", paddingTop: "0.8vw" }}>{this.props.text}</div>
+                <div style={{ fontSize: "1.0vw", paddingTop: "0.8vw", paddingLeft: "0.8vw", paddingRight: "0.8vw" }}>{this.props.text}</div>
             </CardContainer>
         );
     }

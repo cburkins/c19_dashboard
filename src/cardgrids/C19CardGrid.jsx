@@ -58,7 +58,6 @@ class C19CardGrid extends React.PureComponent {
             { label: "Somerset", name: "Somerset County, NJ, USA" },
             { label: "Mercer", name: "Mercer County, NJ, USA" },
             { label: "Middlesex", name: "Middlesex County, NJ, USA" },
-            { label: "Bergen", name: "Bergen County, NJ, USA" },
             { label: "Hudson", name: "Hudson County, NJ, USA" },
             { label: "Morris", name: "Morris County, NJ, USA" },
             { label: "Union", name: "Union County, NJ, USA" }
@@ -69,20 +68,23 @@ class C19CardGrid extends React.PureComponent {
             { label: "Bronx", name: "Bronx County, NY, USA" },
             { label: "Manhattan", name: "New York County, NY, USA" },
             { label: "Brooklyn", name: "Kings County, NY, USA" },
-            { label: "Staten Island", name: "Richmond County, NY, USA" }
+            { label: "Staten Island", name: "Richmond County, NY, USA" },
+            { label: "Bergen, NJ", name: "Bergen County, NJ, USA" }
         ];
         return (
-            <CardGrid rows="40" row_height="3.5vw" columns="12" column_width="1fr">
+            <CardGrid rows="42" row_height="3.5vw" columns="12" column_width="1fr">
                 {/* <WidgetChartJSC19LineByState position="span 6 / span 6" /> */}
                 {/* <WidgetChartJSC19LineByCountry position="span 6 / span 6" /> */}
                 {/* <WidgetChartJSC19BarByState position="span 10 / span 4" /> */}
 
                 <WidgetText
                     position="span 3 / span 4"
+                    color="#114c79"
                     widget_title="Disclaimer Note (Experimental)"
                     text="NOTE: This dashboard is very experimental, and the data source very dynamic (they change the data structure often).  As a result, this whole setup is fairly brittle, but when it works, the data is useful. It's useful for me as I think through all this, so figured I would share with others.   (Chad)"></WidgetText>
                 <WidgetText
                     position="span 3 / span 4"
+                    color="#58266d"
                     widget_title="Disclaimer Note (PA Data)"
                     text="NOTE: As of 3/25, it appears that the data for the state of PA is currently inaccurate (it's very low).  I've opened an issue with the developer of the data source to have this repaired"></WidgetText>
                 <WidgetChartJSC19LineChartCoronaVirusScraper
@@ -140,7 +142,7 @@ class C19CardGrid extends React.PureComponent {
                     widget_title="By PA County (per 1000 people)"
                     per_capita={true}
                     x_axis_min="2020-03-15 00:00:00"
-                    suggested_max={2.0}
+                    suggested_max={1.4}
                 />
                 {/* NJ County */}
                 <WidgetChartJSC19LineChartCoronaVirusScraper
@@ -157,11 +159,11 @@ class C19CardGrid extends React.PureComponent {
                     widget_title="By NJ County (per 1000 people)"
                     per_capita={true}
                     x_axis_min="2020-03-15 00:00:00"
-                    suggested_max={2.0}
+                    suggested_max={1.4}
                 />
                 {/* New York City Counties */}
                 <WidgetChartJSC19LineChartCoronaVirusScraper
-                    position="span 6 / span 6"
+                    position="span 8 / span 6"
                     desired_locations={nyc_county_locations}
                     widget_title="By NYC County"
                     per_capita={false}
@@ -169,12 +171,11 @@ class C19CardGrid extends React.PureComponent {
                     suggested_max={1600}
                 />
                 <WidgetChartJSC19LineChartCoronaVirusScraper
-                    position="span 6 / span 6"
+                    position="span 8 / span 6"
                     desired_locations={nyc_county_locations}
                     widget_title="By NYC County (per 1000 people)"
                     per_capita={true}
                     x_axis_min="2020-03-15 00:00:00"
-                    suggested_max={2.0}
                 />
             </CardGrid>
         );
@@ -188,9 +189,7 @@ class C19CardGrid extends React.PureComponent {
 C19CardGrid.propTypes = {
     changeParentPageTitle: PropTypes.func.isRequired,
     changeRefreshInterval: PropTypes.func.isRequired,
-    boldchat_instance: PropTypes.string.isRequired,
-    boardId: PropTypes.string.isRequired,
-    leankit_instance: PropTypes.string.isRequired
+    boardId: PropTypes.string.isRequired
 };
 
 // Set default props in case they aren't passed to us by the caller

@@ -17,7 +17,7 @@ const VersionTitleNestedOuter = styled.div`
     /* Transform: origin is top/left */
     transform-origin: 0% 0%;
     /* Transform goes right to left (first rotate, then translate/move) */
-    transform: translate(3vw, 15vw) rotate(90deg);
+    transform: translate(3vw, 18vw) rotate(90deg);
 `;
 
 const VersionTitleNestedInner = styled.div`

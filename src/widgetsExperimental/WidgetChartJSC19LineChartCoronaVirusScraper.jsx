@@ -127,8 +127,6 @@ class WidgetChartJSC19LineChartCoronaVirusScraper extends React.Component {
         // };
         let casesByDate = await this.callCoronaScraperAndExtractData(jmespath.search(desiredLocations, "[*].name"));
 
-        console.log("casesByDate", casesByDate);
-
         // Create array to serve as x-axis labels on chart.js chart  (be sure to sort in date ascending order first)
         let xAxisLabels = Object.keys(casesByDate)
             .sort((a, b) => {
@@ -269,8 +267,7 @@ class WidgetChartJSC19LineChartCoronaVirusScraper extends React.Component {
                     {/* Title */}
                     <div className="single-num-title">{this.props.widget_title}</div>
                     <div className="single-num-subtitle">
-                        Sourced from CoronaVirusScraper{" "}
-                        <a href="https://www.health.pa.gov/topics/disease/coronavirus/Pages/Cases.aspx">Data Source</a>
+                        Sourced from CoronaVirusScraper <a href="https://coronadatascraper.com/#timeseries-byLocation.json">Data Source</a>
                     </div>
 
                     <div style={{ width: "100%", height: "88%" }}>{this.renderJSChart()}</div>
