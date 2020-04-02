@@ -138,7 +138,7 @@ class WidgetChartJSC19LineChartCoronaVirusScraper extends React.Component {
 
         // Create object that contains all data for chart.js (created later)
 
-        let colors = ["#b7ac15", "#15b786", "#b76115", "#1e4df6", "#d50af0", "#92010e", "#0af0e1", "#fafafa", "#790af0"];
+        let colors = ["#b7ac15", "#15b786", "#b76115", "#1e4df6", "#d50af0", "#92010e", "#0af0e1", "#fafafa", "#790af0", "#71f00a"];
         let chartJSDataSets = [];
         let i = 0;
         desiredLocations.forEach(locationObj => {

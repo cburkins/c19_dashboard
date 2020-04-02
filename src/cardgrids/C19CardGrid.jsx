@@ -32,7 +32,8 @@ class C19CardGrid extends React.PureComponent {
             { label: "India", name: "IND" },
             { label: "France", name: "FRA" },
             { label: "Belgium", name: "BEL" },
-            { label: "UK", name: "GBR" }
+            { label: "UK", name: "GBR" },
+            { label: "Germany", name: "DEU" }
         ];
         let state_locations = [
             { label: "NY", name: "NY, USA" },
@@ -86,7 +87,14 @@ class C19CardGrid extends React.PureComponent {
                     position="span 3 / span 4"
                     color="#58266d"
                     widget_title="Disclaimer Note (PA Data)"
-                    text="NOTE: As of 3/25, it appears that the data for the state of PA is currently inaccurate (it's very low).  I've opened an issue with the developer of the data source to have this repaired"></WidgetText>
+                    text={[
+                        <div>UPDATE: On 3/30, developer fixed PA data, numbers now appear to be accurate.</div>,
+                        <br />,
+                        <div>
+                            NOTE: As of 3/25, it appears that the data for the state of PA is currently inaccurate (it's very low). I've opened an
+                            issue with the developer of the data source to have this repaired
+                        </div>
+                    ]}></WidgetText>
                 <WidgetChartJSC19LineChartCoronaVirusScraper
                     position="span 6 / span 12"
                     desired_locations={country_locations}
