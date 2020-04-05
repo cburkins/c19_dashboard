@@ -10,6 +10,7 @@ import DashboardChartJSCard from "../core_components/DashboardChartJSCard";
 import CardContainer from "../core_components/CardContainer";
 import { withTheme } from "styled-components/macro";
 var jmespath = require("jmespath");
+var moment = require("moment");
 
 // The purpose of this file is to create a React Component which can be included in HTML
 // This is a self-contained class which knows how to get it's own data, and display it in HTML
@@ -35,12 +36,16 @@ class WidgetChartJSC19LineChartCoronaVirusScraper extends React.Component {
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
     extractDataSeriesAddZeros(chartDataObject, seriesName) {
+        let todayStr = moment().format("YYYY-MM-DD");
         let dataSeries = Object.keys(chartDataObject)
             .sort((a, b) => {
                 return new Date(a) > new Date(b) ? 1 : -1;
             })
-            .map(key => {
-                return chartDataObject[key][seriesName] || 0;
+            .map((date) => {
+                // Data should never included "today", so remove it if it does
+                if (date !== todayStr) {
+                    return chartDataObject[date][seriesName] || 0;
+                }
             });
         return dataSeries;
     }
@@ -51,7 +56,7 @@ class WidgetChartJSC19LineChartCoronaVirusScraper extends React.Component {
         // Call API and download a giant data file (download takes much longer than actual api call)
         let responseC19 = await axios.get("https://coronadatascraper.com/timeseries-byLocation.json", {
             timeout: 20000,
-            params: {}
+            params: {},
         });
 
         // Source Data looks like this:
@@ -78,25 +83,30 @@ class WidgetChartJSC19LineChartCoronaVirusScraper extends React.Component {
         // Initialize empty object to accumulate data
         let countsByDateObj = {};
         // Loop through each desired location
-        desiredLocations.forEach(location => {
+        desiredLocations.forEach((location) => {
             // Get array of dates for a given location
-            Object.keys(sourceData[location]["dates"])
-                // Put the dates (for that location) in date-increasing order
-                .sort((a, b) => {
-                    return new Date(a) > new Date(b) ? 1 : -1;
-                })
-                // Loop through array of dates
-                .forEach(date => {
-                    // First time we've seen this date ?  Create empty object for that date
-                    date in countsByDateObj || (countsByDateObj[date] = {});
-                    if (this.props.per_capita) {
-                        // Add location's datapoint to this date (per 1000 people)
-                        countsByDateObj[date][location] = (sourceData[location]["dates"][date]["cases"] / sourceData[location]["population"]) * 1000;
-                    } else {
-                        // Add location's datapoint to this date (raw number of cases)
-                        countsByDateObj[date][location] = sourceData[location]["dates"][date]["cases"];
-                    }
-                });
+            if (location in sourceData) {
+                Object.keys(sourceData[location]["dates"])
+                    // Put the dates (for that location) in date-increasing order
+                    .sort((a, b) => {
+                        return new Date(a) > new Date(b) ? 1 : -1;
+                    })
+                    // Loop through array of dates
+                    .forEach((date) => {
+                        // First time we've seen this date ?  Create empty object for that date
+                        date in countsByDateObj || (countsByDateObj[date] = {});
+                        if (this.props.per_capita) {
+                            // Add location's datapoint to this date (per 1000 people)
+                            countsByDateObj[date][location] =
+                                (sourceData[location]["dates"][date]["cases"] / sourceData[location]["population"]) * 1000;
+                        } else {
+                            // Add location's datapoint to this date (raw number of cases)
+                            countsByDateObj[date][location] = sourceData[location]["dates"][date]["cases"];
+                        }
+                    });
+            } else {
+                console.warn(`Missing location: ${location}`);
+            }
         });
 
         // We're about to return a data object with this structure
@@ -106,6 +116,9 @@ class WidgetChartJSC19LineChartCoronaVirusScraper extends React.Component {
         //     "2020-02-26": { PA: 8, NJ: 13 },
         //     "2020-02-27": { PA: 9, NJ: 11, MD: 4 }
         // };
+
+        // Occasionally seeing bad data with today's date, so filter that out
+        delete countsByDateObj[moment().format("YYYY-MM-DD")];
 
         return countsByDateObj;
     }
@@ -132,7 +145,7 @@ class WidgetChartJSC19LineChartCoronaVirusScraper extends React.Component {
             .sort((a, b) => {
                 return new Date(a) > new Date(b) ? 1 : -1;
             })
-            .map(dateString => {
+            .map((dateString) => {
                 return new Date(`${dateString} 00:00:00`);
             });
 
@@ -141,11 +154,11 @@ class WidgetChartJSC19LineChartCoronaVirusScraper extends React.Component {
         let colors = ["#b7ac15", "#15b786", "#b76115", "#1e4df6", "#d50af0", "#92010e", "#0af0e1", "#fafafa", "#790af0", "#71f00a"];
         let chartJSDataSets = [];
         let i = 0;
-        desiredLocations.forEach(locationObj => {
+        desiredLocations.forEach((locationObj) => {
             chartJSDataSets.push({
                 label: locationObj["label"],
                 borderColor: colors[i],
-                data: this.extractDataSeriesAddZeros(casesByDate, locationObj["name"])
+                data: this.extractDataSeriesAddZeros(casesByDate, locationObj["name"]),
             });
             i = i + 1;
         });
@@ -185,19 +198,19 @@ class WidgetChartJSC19LineChartCoronaVirusScraper extends React.Component {
                 className="chart-itself"
                 data={{
                     labels: this.state.xAxisLabels,
-                    datasets: this.state.chartJSDataSets
+                    datasets: this.state.chartJSDataSets,
                 }}
                 options={{
                     responive: true,
                     maintainAspectRatio: false,
                     animation: {
-                        duration: 3000
+                        duration: 3000,
                     },
                     legend: {
                         labels: {
                             fontColor: this.props.theme.currentColorTheme.colorThemeFontDefault,
-                            fontSize: 16
-                        }
+                            fontSize: 16,
+                        },
                     },
                     scales: {
                         xAxes: [
@@ -206,23 +219,23 @@ class WidgetChartJSC19LineChartCoronaVirusScraper extends React.Component {
                                 time: {
                                     unit: "day",
                                     displayFormats: {
-                                        day: "MMM D"
-                                    }
+                                        day: "MMM D",
+                                    },
                                 },
                                 ticks: {
                                     fontColor: this.props.theme.currentColorTheme.colorThemeFontDefault,
                                     minRotation: 75,
                                     fontSize: 16,
-                                    min: new Date(this.props.x_axis_min)
+                                    min: new Date(this.props.x_axis_min),
                                 },
                                 offset: false,
                                 gridLines: {
                                     color: this.props.theme.currentColorTheme.colorThemeChartGridlines,
                                     // Length and spacing of dashed line
                                     borderDash: [1, 3],
-                                    display: true // this will toggle vertical lines
-                                }
-                            }
+                                    display: true, // this will toggle vertical lines
+                                },
+                            },
                         ],
                         yAxes: [
                             {
@@ -230,23 +243,23 @@ class WidgetChartJSC19LineChartCoronaVirusScraper extends React.Component {
                                     color: this.props.theme.currentColorTheme.colorThemeChartGridlines,
                                     // Length and spacing of dashed line
                                     borderDash: [5, 5],
-                                    display: true // this will toggle horizontal lines
+                                    display: true, // this will toggle horizontal lines
                                 },
                                 ticks: {
                                     fontColor: this.props.theme.currentColorTheme.colorThemeFontDefault,
                                     suggestedMin: 0,
                                     suggestedMax: this.props.suggested_max,
-                                    fontSize: 16
+                                    fontSize: 16,
                                 },
                                 scaleLabel: {
                                     display: true,
                                     labelString: "Confirmed Covid-19 Cases",
                                     fontColor: this.props.theme.currentColorTheme.colorThemeFontDefault,
-                                    fontSize: 16
-                                }
-                            }
-                        ]
-                    }
+                                    fontSize: 16,
+                                },
+                            },
+                        ],
+                    },
                 }}
             />
         );
@@ -285,12 +298,12 @@ class WidgetChartJSC19LineChartCoronaVirusScraper extends React.Component {
 WidgetChartJSC19LineChartCoronaVirusScraper.defaultProps = {
     desired_locations: [
         { label: "Bucks", name: "Bucks County, PA, USA" },
-        { label: "Lanc", name: "Lancaster County, PA, USA" }
+        { label: "Lanc", name: "Lancaster County, PA, USA" },
     ],
     widget_title: "C19 Cases By PA Counties",
     per_capita: false,
     x_axis_min: "2020-02-10 00:00:00",
-    suggested_max: null
+    suggested_max: null,
 };
 
 // Force the caller to include the proper attributes
@@ -303,7 +316,7 @@ WidgetChartJSC19LineChartCoronaVirusScraper.propTypes = {
     widget_title: PropTypes.string,
     per_capita: PropTypes.bool,
     x_axis_min: PropTypes.string,
-    suggested_max: PropTypes.number
+    suggested_max: PropTypes.number,
 };
 
 // If we (this file) get "imported", this is what they'll be given

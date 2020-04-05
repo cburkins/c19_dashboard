@@ -58,6 +58,7 @@ class WidgetText extends React.Component {
         // Unsubscribe from all pubsub events
         PubSub.unsubscribe(this.getDataAndUpdateState);
     }
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
     render() {
         // Standard React Lifecycle method, gets called by React itself
@@ -81,7 +82,7 @@ class WidgetText extends React.Component {
 
 // Set default props in case they aren't passed to us by the caller
 WidgetText.defaultProps = {
-    text: "Here is some text"
+    text: ["Here is some text"],
 };
 
 // Force the caller to include the proper attributes
@@ -93,7 +94,7 @@ WidgetText.propTypes = {
     widget_title: PropTypes.string,
     per_capita: PropTypes.bool,
     x_axis_min: PropTypes.string,
-    text: PropTypes.string.isRequired
+    text: PropTypes.array.isRequired,
 };
 
 // If we (this file) get "imported", this is what they'll be given
