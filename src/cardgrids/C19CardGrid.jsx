@@ -44,6 +44,7 @@ class C19CardGrid extends React.PureComponent {
             { label: "MI", name: "Michigan, United States" },
             { label: "DC", name: "District of Columbia, Washington, D.C., United States" },
             { label: "FL", name: "Florida, United States" },
+            { label: "IL", name: "Illinois, United States" },
         ];
         let pa_county_locations = [
             { label: "Bucks", name: "Bucks County, Pennsylvania, United States" },
