@@ -24,16 +24,16 @@ class C19CardGrid extends React.PureComponent {
 
     render() {
         let country_locations = [
-            { label: "China", name: "CHN" },
-            { label: "Italy", name: "ITA" },
-            { label: "Spain", name: "ESP" },
+            { label: "China", name: "China" },
+            { label: "Italy", name: "Italy" },
+            { label: "Spain", name: "Spain" },
             { label: "USA", name: "United States" },
-            { label: "Iran", name: "IRN" },
-            { label: "India", name: "IND" },
-            { label: "France", name: "FRA" },
-            { label: "Belgium", name: "BEL" },
-            { label: "UK", name: "GBR" },
-            { label: "Germany", name: "DEU" },
+            { label: "Iran", name: "Iran" },
+            { label: "India", name: "India" },
+            { label: "France", name: "France" },
+            { label: "Belgium", name: "Belgium" },
+            { label: "UK", name: "United Kingdom" },
+            { label: "Germany", name: "Germany" },
         ];
         let state_locations = [
             { label: "NY", name: "New York, United States" },

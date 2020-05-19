@@ -158,6 +158,10 @@ class WidgetChartJSC19LineChartCoronaVirusScraper extends React.Component {
             chartJSDataSets.push({
                 label: locationObj["label"],
                 borderColor: colors[i],
+                // Width of line in line chart
+                borderWidth: 1,
+                // Width of datapoint in line chart
+                pointRadius: 1,
                 data: this.extractDataSeriesAddZeros(casesByDate, locationObj["name"]),
             });
             i = i + 1;
@@ -226,6 +230,9 @@ class WidgetChartJSC19LineChartCoronaVirusScraper extends React.Component {
                                     fontColor: this.props.theme.currentColorTheme.colorThemeFontDefault,
                                     minRotation: 75,
                                     fontSize: 16,
+                                    autoSkip: true,
+                                    // Minimum spacing between auto-calculated labels on axis
+                                    autoSkipPadding: 5,
                                     min: new Date(this.props.x_axis_min),
                                 },
                                 offset: false,
