@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 
 // Widget imports
 import WidgetChartJSC19LineChartCoronaVirusScraper from "../widgetsExperimental/WidgetChartJSC19LineChartCoronaVirusScraper";
+import WidgetC19TableCoronaVirusScraper from "../widgetsExperimental/WidgetC19TableCoronaVirusScraper";
 import WidgetText from "../widgets_demo/WidgetText";
 
 // Other project imports
@@ -74,7 +75,7 @@ class C19CardGrid extends React.PureComponent {
             { label: "Bergen, NJ", name: "Bergen County, New Jersey, United States" },
         ];
         return (
-            <CardGrid rows="42" row_height="3.5vw" columns="12" column_width="1fr">
+            <CardGrid rows="70" row_height="3.5vw" columns="12" column_width="1fr">
                 {/* <WidgetChartJSC19LineByState position="span 6 / span 6" /> */}
                 {/* <WidgetChartJSC19LineByCountry position="span 6 / span 6" /> */}
                 {/* <WidgetChartJSC19BarByState position="span 10 / span 4" /> */}
@@ -179,6 +180,105 @@ class C19CardGrid extends React.PureComponent {
                     widget_title="By NYC County (per 1000 people)"
                     per_capita={true}
                     x_axis_min="2020-03-15 00:00:00"
+                />
+
+                <WidgetC19TableCoronaVirusScraper
+                    position="span 8 / span 3"
+                    widget_title="All Countries / Per 1000"
+                    per_capita={true}
+                    desired_filters={[
+                        function (dataPoint) {
+                            return dataPoint.level === "country";
+                        },
+                    ]}
+                    limit={20}
+                />
+                <WidgetC19TableCoronaVirusScraper
+                    position="span 8 / span 3"
+                    widget_title="Big Countries / Per 1000"
+                    per_capita={true}
+                    desired_filters={[
+                        function (dataPoint) {
+                            return dataPoint.level === "country";
+                        },
+                        function (dataPoint) {
+                            return dataPoint.population > 1000000;
+                        },
+                    ]}
+                    limit={20}
+                />
+                <WidgetC19TableCoronaVirusScraper
+                    position="span 8 / span 3"
+                    widget_title="Top NJ Counties (Per 1000)"
+                    per_capita={true}
+                    desired_filters={[
+                        function (dataPoint) {
+                            return dataPoint.level === "county";
+                        },
+                        function (dataPoint) {
+                            return dataPoint.state === "New Jersey";
+                        },
+                    ]}
+                    limit={20}
+                />
+                <WidgetC19TableCoronaVirusScraper
+                    position="span 8 / span 3"
+                    widget_title="Top PA Counties (Per 1000)"
+                    per_capita={true}
+                    desired_filters={[
+                        function (dataPoint) {
+                            return dataPoint.level === "county";
+                        },
+                        function (dataPoint) {
+                            return dataPoint.state === "Pennsylvania";
+                        },
+                    ]}
+                    limit={20}
+                />
+                <WidgetC19TableCoronaVirusScraper
+                    position="span 8 / span 3"
+                    widget_title="Top Global Counties (Per 1000)"
+                    per_capita={true}
+                    desired_filters={[
+                        function (dataPoint) {
+                            return dataPoint.level === "county";
+                        },
+                        function (dataPoint) {
+                            return dataPoint.country !== "United States";
+                        },
+                    ]}
+                    limit={20}
+                />
+                <WidgetC19TableCoronaVirusScraper
+                    position="span 8 / span 3"
+                    widget_title="Top US Counties (Per 1000)"
+                    per_capita={true}
+                    desired_filters={[
+                        function (dataPoint) {
+                            return dataPoint.level === "county";
+                        },
+                        function (dataPoint) {
+                            return dataPoint.country === "United States";
+                        },
+                    ]}
+                    limit={20}
+                />
+                <WidgetC19TableCoronaVirusScraper
+                    position="span 8 / span 3"
+                    widget_title="Top Dense Counties (Per 1000)"
+                    per_capita={true}
+                    desired_filters={[
+                        function (dataPoint) {
+                            return dataPoint.level === "county";
+                        },
+                        function (dataPoint) {
+                            return dataPoint.populationDensity > 1000;
+                        },
+                        function (dataPoint) {
+                            return "cases" in dataPoint && dataPoint.cases > 1;
+                        },
+                    ]}
+                    limit={40}
                 />
             </CardGrid>
         );
