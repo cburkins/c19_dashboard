@@ -143,8 +143,8 @@ class WidgetChartJSC19LineChartCoronaVirusScraper extends React.Component {
         // Get called every time the "state" object gets modified, in other words setState() was called
         // Also called if "props" are modified (which are passed from the parent)
 
-        console.log("state", this.state);
-        console.log("length: ", this.state.dataset.length);
+        // console.log("state", this.state);
+        // console.log("length: ", this.state.dataset.length);
         if (this.state.dataset.length > 0) {
             return (
                 <CardContainer

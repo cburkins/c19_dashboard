@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 import WidgetChartJSC19LineChartCoronaVirusScraper from "../widgetsExperimental/WidgetChartJSC19LineChartCoronaVirusScraper";
 import WidgetC19TableCoronaVirusScraper from "../widgetsExperimental/WidgetC19TableCoronaVirusScraper";
 import WidgetText from "../widgets_demo/WidgetText";
+import WidgetChartC19Line from "../widgetsExperimental/WidgetChartC19Line";
 
 // Other project imports
 import CardGrid from "../core_components/cardGrid";
@@ -18,34 +19,36 @@ class C19CardGrid extends React.PureComponent {
 
         // Update our parent (the Dashboard) with a new page title
         props.changeParentPageTitle("Covid-19 Dashboard");
-        props.changeRefreshInterval(3000 * 1000);
+        props.changeRefreshInterval(120 * 60 * 1000);
     }
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
     render() {
         let country_locations = [
-            { label: "China", name: "China" },
-            { label: "Italy", name: "Italy" },
-            { label: "Spain", name: "Spain" },
+            // { label: "China", name: "China" },
+            // { label: "Italy", name: "Italy" },
+            // { label: "Spain", name: "Spain" },
             { label: "USA", name: "United States" },
-            { label: "Iran", name: "Iran" },
+            // { label: "Iran", name: "Iran" },
             { label: "India", name: "India" },
-            { label: "France", name: "France" },
-            { label: "Belgium", name: "Belgium" },
-            { label: "UK", name: "United Kingdom" },
-            { label: "Germany", name: "Germany" },
+            // { label: "France", name: "France" },
+            // { label: "Belgium", name: "Belgium" },
+            // { label: "UK", name: "United Kingdom" },
+            // { label: "Germany", name: "Germany" },
         ];
         let state_locations = [
-            { label: "NY", name: "New York, United States" },
-            { label: "WA", name: "Washington, United States" },
-            { label: "PA", name: "Pennsylvania, United States" },
-            { label: "NJ", name: "New Jersey, United States" },
-            { label: "CA", name: "California, United States" },
-            { label: "MI", name: "Michigan, United States" },
-            { label: "DC", name: "District of Columbia, Washington, D.C., United States" },
-            { label: "FL", name: "Florida, United States" },
-            { label: "IL", name: "Illinois, United States" },
+            // { label: "NY", name: "New York, United States" },
+            // { label: "WA", name: "Washington, United States" },
+            { label: "PA", name: "pa", population: "12800000" },
+            { label: "NJ", name: "nj", population: "8800000" },
+            { label: "CA", name: "ca", population: "39500000" },
+            { label: "FL", name: "fl", population: "21500000" },
+            // { label: "CA", name: "California, United States" },
+            // { label: "MI", name: "Michigan, United States" },
+            // { label: "DC", name: "District of Columbia, Washington, D.C., United States" },
+            // { label: "FL", name: "Florida, United States" },
+            // { label: "IL", name: "Illinois, United States" },
         ];
         let pa_county_locations = [
             { label: "Bucks", name: "Bucks County, Pennsylvania, United States" },
@@ -80,7 +83,9 @@ class C19CardGrid extends React.PureComponent {
                 {/* <WidgetChartJSC19LineByCountry position="span 6 / span 6" /> */}
                 {/* <WidgetChartJSC19BarByState position="span 10 / span 4" /> */}
 
-                <WidgetText
+                <WidgetChartC19Line position="span 6 / span 12" widget_title="Currently Hospitalized" desired_locations={state_locations} />
+
+                {/* <WidgetText
                     position="span 3 / span 4"
                     color="#114c79"
                     widget_title="Disclaimer Note (Experimental)"
@@ -96,11 +101,11 @@ class C19CardGrid extends React.PureComponent {
                     desired_locations={country_locations}
                     widget_title="C19 Cases by Country (Long history)"
                     per_capita={false}
-                    x_axis_min="2020-01-21 00:00:00"
-                />
+                    x_axis_min="2020-06-21 00:00:00"
+                /> */}
 
                 {/* Country */}
-                <WidgetChartJSC19LineChartCoronaVirusScraper
+                {/* <WidgetChartJSC19LineChartCoronaVirusScraper
                     position="span 6 / span 6"
                     desired_locations={country_locations}
                     widget_title="By Country"
@@ -113,10 +118,9 @@ class C19CardGrid extends React.PureComponent {
                     widget_title="By Country (per 1000 people)"
                     per_capita={true}
                     x_axis_min="2020-03-15 00:00:00"
-                />
-
+                /> */}
                 {/* State */}
-                <WidgetChartJSC19LineChartCoronaVirusScraper
+                {/* <WidgetChartJSC19LineChartCoronaVirusScraper
                     position="span 6 / span 6"
                     desired_locations={state_locations}
                     widget_title="By US State"
@@ -130,9 +134,9 @@ class C19CardGrid extends React.PureComponent {
                     per_capita={true}
                     x_axis_min="2020-03-15 00:00:00"
                 />
-
+ */}
                 {/* PA County */}
-                <WidgetChartJSC19LineChartCoronaVirusScraper
+                {/* <WidgetChartJSC19LineChartCoronaVirusScraper
                     position="span 6 / span 6"
                     desired_locations={pa_county_locations}
                     widget_title="By PA County"
@@ -147,9 +151,9 @@ class C19CardGrid extends React.PureComponent {
                     per_capita={true}
                     x_axis_min="2020-03-15 00:00:00"
                     suggested_max={1.4}
-                />
+                /> */}
                 {/* NJ County */}
-                <WidgetChartJSC19LineChartCoronaVirusScraper
+                {/* <WidgetChartJSC19LineChartCoronaVirusScraper
                     position="span 6 / span 6"
                     desired_locations={nj_county_locations}
                     widget_title="By NJ County"
@@ -164,9 +168,9 @@ class C19CardGrid extends React.PureComponent {
                     per_capita={true}
                     x_axis_min="2020-03-15 00:00:00"
                     suggested_max={1.4}
-                />
+                /> */}
                 {/* New York City Counties */}
-                <WidgetChartJSC19LineChartCoronaVirusScraper
+                {/* <WidgetChartJSC19LineChartCoronaVirusScraper
                     position="span 8 / span 6"
                     desired_locations={nyc_county_locations}
                     widget_title="By NYC County"
@@ -180,9 +184,9 @@ class C19CardGrid extends React.PureComponent {
                     widget_title="By NYC County (per 1000 people)"
                     per_capita={true}
                     x_axis_min="2020-03-15 00:00:00"
-                />
+                /> */}
 
-                <WidgetC19TableCoronaVirusScraper
+                {/* <WidgetC19TableCoronaVirusScraper
                     position="span 8 / span 3"
                     widget_title="All Countries / Per 1000"
                     per_capita={true}
@@ -206,8 +210,9 @@ class C19CardGrid extends React.PureComponent {
                         },
                     ]}
                     limit={20}
-                />
-                <WidgetC19TableCoronaVirusScraper
+                /> */}
+
+                {/* <WidgetC19TableCoronaVirusScraper
                     position="span 8 / span 3"
                     widget_title="Top NJ Counties (Per 1000)"
                     per_capita={true}
@@ -278,8 +283,8 @@ class C19CardGrid extends React.PureComponent {
                             return "cases" in dataPoint && dataPoint.cases > 1;
                         },
                     ]}
-                    limit={40}
-                />
+                    limit={40} 
+                /> */}
             </CardGrid>
         );
     }

@@ -54,7 +54,12 @@ class WidgetChartJSC19LineChartCoronaVirusScraper extends React.Component {
 
     async callCoronaScraperAndExtractData(desiredLocations) {
         // Call API and download a giant data file (download takes much longer than actual api call)
-        let responseC19 = await axios.get("https://coronadatascraper.com/timeseries-byLocation.json", {
+        // let dataURL = "https://coronadatascraper.com/timeseries-byLocation.json";
+        // dataURL = "https://liproduction-reportsbucket-bhk8fnhv1s76.s3-us-west-1.amazonaws.com/v1/latest/timeseries-byLocation.json";
+        let dataURL =
+            "https://cors-anywhere.herokuapp.com/https://liproduction-reportsbucket-bhk8fnhv1s76.s3-us-west-1.amazonaws.com/v1/latest/timeseries-byLocation.json";
+
+        let responseC19 = await axios.get(dataURL, {
             timeout: 20000,
             params: {},
         });
@@ -74,7 +79,7 @@ class WidgetChartJSC19LineChartCoronaVirusScraper extends React.Component {
         //     "Bucks County, PA, USA": { dates: "sames as above" }
         // };
 
-        // console.log("CoronaVirusScraper Locations", responseC19.data);
+        console.log("CoronaVirusScraper Locations", responseC19.data);
 
         let sourceData = responseC19.data;
 
@@ -84,13 +89,35 @@ class WidgetChartJSC19LineChartCoronaVirusScraper extends React.Component {
         let countsByDateObj = {};
         // Loop through each desired location
         desiredLocations.forEach((location) => {
+            // let sourceDataPointDatesArray = sourceData[location]["dates"];
+            let sourceDataSingleLocationObject = sourceData.filter((obj) => {
+                // console.log("data location === " + location);
+                return obj.name === location;
+            });
+            if (sourceDataSingleLocationObject.length === 1) {
+                sourceDataSingleLocationObject = sourceDataSingleLocationObject[0];
+            } else if (sourceDataSingleLocationObject.length > 1) {
+                console.error(`Location ${location}: Found more than 1 location`);
+            } else {
+                sourceDataSingleLocationObject = null;
+            }
+
             // Get array of dates for a given location
-            if (location in sourceData) {
-                Object.keys(sourceData[location]["dates"])
+            if (sourceDataSingleLocationObject) {
+                // if (location in sourceData) {
+                // Extract a single location's data from the larger array
+
+                console.log("Match");
+
+                console.log("singleLocationData:", sourceDataSingleLocationObject);
+
+                Object.keys(sourceDataSingleLocationObject["dates"])
+
                     // Put the dates (for that location) in date-increasing order
                     .sort((a, b) => {
                         return new Date(a) > new Date(b) ? 1 : -1;
                     })
+
                     // Loop through array of dates
                     .forEach((date) => {
                         // First time we've seen this date ?  Create empty object for that date
@@ -98,10 +125,11 @@ class WidgetChartJSC19LineChartCoronaVirusScraper extends React.Component {
                         if (this.props.per_capita) {
                             // Add location's datapoint to this date (per 1000 people)
                             countsByDateObj[date][location] =
-                                (sourceData[location]["dates"][date]["cases"] / sourceData[location]["population"]) * 1000;
+                                (sourceData[location]["dates"][date]["cases"] / sourceDataSingleLocationObject["population"]) * 1000;
                         } else {
                             // Add location's datapoint to this date (raw number of cases)
-                            countsByDateObj[date][location] = sourceData[location]["dates"][date]["cases"];
+                            // countsByDateObj[date][location] = sourceDataSingleLocationObject["dates"][date]["cases"];
+                            countsByDateObj[date][location] = sourceDataSingleLocationObject["dates"][date]["hospitalized_current"];
                         }
                     });
             } else {
@@ -139,6 +167,7 @@ class WidgetChartJSC19LineChartCoronaVirusScraper extends React.Component {
         //     "2020-02-27": { PA: 9, NJ: 11, MD: 4 }
         // };
         let casesByDate = await this.callCoronaScraperAndExtractData(jmespath.search(desiredLocations, "[*].name"));
+        console.log("casesByDate", casesByDate);
 
         // Create array to serve as x-axis labels on chart.js chart  (be sure to sort in date ascending order first)
         let xAxisLabels = Object.keys(casesByDate)

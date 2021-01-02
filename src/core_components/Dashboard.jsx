@@ -15,7 +15,7 @@ import styled from "styled-components/macro";
 // This is a comment
 
 const SidebarDiv = styled.div`
-    color: ${props => props.theme.currentColorTheme.colorThemeLeftNavLinks};
+    color: ${(props) => props.theme.currentColorTheme.colorThemeLeftNavLinks};
 `;
 
 const LinkSidebar = styled(Link)`
@@ -23,7 +23,7 @@ const LinkSidebar = styled(Link)`
     padding-bottom: 0.4vw;
     padding-top: 0.4vw;
     text-decoration: none;
-    color: ${props => props.theme.currentColorTheme.colorThemeLeftNavLinks};
+    color: ${(props) => props.theme.currentColorTheme.colorThemeLeftNavLinks};
     transition: 0.5s;
     display: block;
     font-size: 1.4vw;
@@ -32,7 +32,7 @@ const LinkSidebar = styled(Link)`
 const SidebarTitle = styled.div`
     font-size: 1.6vw;
     text-decoration: underline;
-    color: ${props => props.theme.currentColorTheme.colorThemeLeftNavLinks};
+    color: ${(props) => props.theme.currentColorTheme.colorThemeLeftNavLinks};
 `;
 
 // This is a comment
@@ -48,7 +48,7 @@ class Dashboard extends React.Component {
             refreshInterval: props.refreshInterval,
             // time remaining until next data refresh PubSub
             refreshRemainingMs: props.refreshInterval,
-            reloadRemainingMs: props.reloadInterval
+            reloadRemainingMs: props.reloadInterval,
         };
 
         // So we can keep track of the once-per-second timeout
@@ -194,7 +194,15 @@ class Dashboard extends React.Component {
                             </Link>
 
                             {/* Show the time remaining until the next refresh */}
-                            <div style={{ padding: "6px", fontSize: "1.7vw" }}>{this.state.refreshRemainingMs / 1000}s</div>
+                            <div style={{ padding: "6px", fontSize: "1.7vw" }}>
+                                <NumberFormat
+                                    value={this.state.refreshRemainingMs / 1000 / 60}
+                                    decimalScale={1}
+                                    fixedDecimalScale={true}
+                                    displayType={"text"}
+                                />
+                                m
+                            </div>
                             <div style={{ padding: "6px", fontSize: "1.7vw" }}>
                                 <NumberFormat
                                     value={this.state.reloadRemainingMs / 1000 / 60}
@@ -242,7 +250,7 @@ Dashboard.defaultProps = {
     sn_instance: "jnjprodworker.service-now.com",
     // sn_instance: "jnjqa2.service-now.com",
     boldchat_instance: "api.boldchat.com",
-    leankit_instance: "jnj.leankit.com"
+    leankit_instance: "jnj.leankit.com",
 };
 
 Dashboard.propTypes = {
@@ -253,8 +261,8 @@ Dashboard.propTypes = {
     boldchat_instance: PropTypes.string.isRequired,
     leankit_instance: PropTypes.string.isRequired,
     theme: PropTypes.shape({
-        colorThemePageBackground: PropTypes.string
-    })
+        colorThemePageBackground: PropTypes.string,
+    }),
 };
 
 export default Dashboard;
