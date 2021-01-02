@@ -3,9 +3,9 @@ import React from "react";
 import PropTypes from "prop-types";
 
 // Widget imports
-import WidgetChartJSC19LineChartCoronaVirusScraper from "../widgetsExperimental/WidgetChartJSC19LineChartCoronaVirusScraper";
-import WidgetC19TableCoronaVirusScraper from "../widgetsExperimental/WidgetC19TableCoronaVirusScraper";
-import WidgetText from "../widgets_demo/WidgetText";
+// import WidgetChartJSC19LineChartCoronaVirusScraper from "../widgetsExperimental/WidgetChartJSC19LineChartCoronaVirusScraper";
+// import WidgetC19TableCoronaVirusScraper from "../widgetsExperimental/WidgetC19TableCoronaVirusScraper";
+// import WidgetText from "../widgets_demo/WidgetText";
 import WidgetChartC19Line from "../widgetsExperimental/WidgetChartC19Line";
 
 // Other project imports
@@ -25,65 +25,76 @@ class C19CardGrid extends React.PureComponent {
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
     render() {
-        let country_locations = [
-            // { label: "China", name: "China" },
-            // { label: "Italy", name: "Italy" },
-            // { label: "Spain", name: "Spain" },
-            { label: "USA", name: "United States" },
-            // { label: "Iran", name: "Iran" },
-            { label: "India", name: "India" },
-            // { label: "France", name: "France" },
-            // { label: "Belgium", name: "Belgium" },
-            // { label: "UK", name: "United Kingdom" },
-            // { label: "Germany", name: "Germany" },
-        ];
+        // let country_locations = [
+        //     // { label: "China", name: "China" },
+        //     // { label: "Italy", name: "Italy" },
+        //     // { label: "Spain", name: "Spain" },
+        //     { label: "USA", name: "United States" },
+        //     // { label: "Iran", name: "Iran" },
+        //     { label: "India", name: "India" },
+        //     // { label: "France", name: "France" },
+        //     // { label: "Belgium", name: "Belgium" },
+        //     // { label: "UK", name: "United Kingdom" },
+        //     // { label: "Germany", name: "Germany" },
+        // ];
+
         let state_locations = [
-            // { label: "NY", name: "New York, United States" },
-            // { label: "WA", name: "Washington, United States" },
             { label: "PA", name: "pa", population: "12800000" },
             { label: "NJ", name: "nj", population: "8800000" },
             { label: "CA", name: "ca", population: "39500000" },
             { label: "FL", name: "fl", population: "21500000" },
-            // { label: "CA", name: "California, United States" },
-            // { label: "MI", name: "Michigan, United States" },
-            // { label: "DC", name: "District of Columbia, Washington, D.C., United States" },
-            // { label: "FL", name: "Florida, United States" },
-            // { label: "IL", name: "Illinois, United States" },
+            { label: "TN", name: "tn", population: "6890000" },
+            { label: "VT", name: "vt", population: "623000" },
         ];
-        let pa_county_locations = [
-            { label: "Bucks", name: "Bucks County, Pennsylvania, United States" },
-            { label: "Lanc", name: "Lancaster County, Pennsylvania, United States" },
-            { label: "Phil", name: "Philadelphia County, Pennsylvania, United States" },
-            { label: "MontCo", name: "Montgomery County, Pennsylvania, United States" },
-            { label: "DelCo", name: "Delaware County, Pennsylvania, United States" },
-            { label: "Berks", name: "Berks County, Pennsylvania, United States" },
-            { label: "Lehigh", name: "Lehigh County, Pennsylvania, United States" },
-        ];
-        let nj_county_locations = [
-            { label: "Hunterdon", name: "Hunterdon County, New Jersey, United States" },
-            { label: "Somerset", name: "Somerset County, New Jersey, United States" },
-            { label: "Mercer", name: "Mercer County, New Jersey, United States" },
-            { label: "Middlesex", name: "Middlesex County, New Jersey, United States" },
-            { label: "Hudson", name: "Hudson County, New Jersey, United States" },
-            { label: "Morris", name: "Morris County, New Jersey, United States" },
-            { label: "Union", name: "Union County, New Jersey, United States" },
-            // { label: "", name: " County, New Jersey, United States" },
-        ];
-        let nyc_county_locations = [
-            { label: "Queens", name: "Queens County, New York, United States" },
-            { label: "Bronx", name: "Bronx County, New York, United States" },
-            { label: "Manhattan", name: "New York County, New York, United States" },
-            { label: "Brooklyn", name: "Kings County, New York, United States" },
-            { label: "Staten Island", name: "Richmond County, New York, United States" },
-            { label: "Bergen, NJ", name: "Bergen County, New Jersey, United States" },
-        ];
+
+        // let pa_county_locations = [
+        //     { label: "Bucks", name: "Bucks County, Pennsylvania, United States" },
+        //     { label: "Lanc", name: "Lancaster County, Pennsylvania, United States" },
+        //     { label: "Phil", name: "Philadelphia County, Pennsylvania, United States" },
+        //     { label: "MontCo", name: "Montgomery County, Pennsylvania, United States" },
+        //     { label: "DelCo", name: "Delaware County, Pennsylvania, United States" },
+        //     { label: "Berks", name: "Berks County, Pennsylvania, United States" },
+        //     { label: "Lehigh", name: "Lehigh County, Pennsylvania, United States" },
+        // ];
+
+        // let nj_county_locations = [
+        //     { label: "Hunterdon", name: "Hunterdon County, New Jersey, United States" },
+        //     { label: "Somerset", name: "Somerset County, New Jersey, United States" },
+        //     { label: "Mercer", name: "Mercer County, New Jersey, United States" },
+        //     { label: "Middlesex", name: "Middlesex County, New Jersey, United States" },
+        //     { label: "Hudson", name: "Hudson County, New Jersey, United States" },
+        //     { label: "Morris", name: "Morris County, New Jersey, United States" },
+        //     { label: "Union", name: "Union County, New Jersey, United States" },
+        //     // { label: "", name: " County, New Jersey, United States" },
+        // ];
+
+        // let nyc_county_locations = [
+        //     { label: "Queens", name: "Queens County, New York, United States" },
+        //     { label: "Bronx", name: "Bronx County, New York, United States" },
+        //     { label: "Manhattan", name: "New York County, New York, United States" },
+        //     { label: "Brooklyn", name: "Kings County, New York, United States" },
+        //     { label: "Staten Island", name: "Richmond County, New York, United States" },
+        //     { label: "Bergen, NJ", name: "Bergen County, New Jersey, United States" },
+        // ];
+
         return (
             <CardGrid rows="70" row_height="3.5vw" columns="12" column_width="1fr">
                 {/* <WidgetChartJSC19LineByState position="span 6 / span 6" /> */}
                 {/* <WidgetChartJSC19LineByCountry position="span 6 / span 6" /> */}
                 {/* <WidgetChartJSC19BarByState position="span 10 / span 4" /> */}
 
-                <WidgetChartC19Line position="span 6 / span 12" widget_title="Currently Hospitalized" desired_locations={state_locations} />
+                <WidgetChartC19Line
+                    position="span 10 / span 12"
+                    widget_title="Currently Hospitalized"
+                    desired_locations={state_locations}
+                    x_axis_min="2020-06-21 00:00:00"
+                />
+                <WidgetChartC19Line
+                    position="span 10 / span 12"
+                    widget_title="Currently Hospitalized"
+                    desired_locations={state_locations}
+                    x_axis_min="2020-11-01 00:00:00"
+                />
 
                 {/* <WidgetText
                     position="span 3 / span 4"

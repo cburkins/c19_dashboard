@@ -9,7 +9,6 @@ import axios from "axios";
 import DashboardChartJSCard from "../core_components/DashboardChartJSCard";
 import CardContainer from "../core_components/CardContainer";
 import { withTheme } from "styled-components/macro";
-var jmespath = require("jmespath");
 var moment = require("moment");
 
 // The purpose of this file is to create a React Component which can be included in HTML
@@ -35,17 +34,14 @@ class WidgetChartC19Line extends React.Component {
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-    extractDataSeriesAddZeros(chartDataObject, seriesName) {
-        let todayStr = moment().format("YYYY-MM-DD");
+    extractSingleDataSeriesAndAddZeros(chartDataObject, seriesName) {
         let dataSeries = Object.keys(chartDataObject)
             .sort((a, b) => {
                 return new Date(a) > new Date(b) ? 1 : -1;
             })
             .map((date) => {
-                // Data should never included "today", so remove it if it does
-                if (date !== todayStr) {
-                    return chartDataObject[date][seriesName] || 0;
-                }
+                // If there's a datapoint for this day, return it, otherwise, fill in a 0 (zero)
+                return chartDataObject[date][seriesName] || 0;
             });
         return dataSeries;
     }
@@ -73,8 +69,6 @@ class WidgetChartC19Line extends React.Component {
         // };
 
         // We're finished aquiring data, now transform into my own standard format (see bottom of function for example)
-
-        let locationsArray = jmespath.search(desiredLocations, "[*].name");
 
         // Initialize empty object to accumulate data
         let countsByDateObj = {};
@@ -110,7 +104,7 @@ class WidgetChartC19Line extends React.Component {
                     // hospitalizedCurrently
                     // inIcuCurrently
                     // deathIncrease
-                    countsByDateObj[dateString][location.name] = dateObj["hospitalizedCurrently"] / location.population;
+                    countsByDateObj[dateString][location.name] = (dateObj["hospitalizedCurrently"] / location.population) * 10000;
                     console.log("population:");
                 });
                 console.log("countsByDateObj:", countsByDateObj);
@@ -173,7 +167,7 @@ class WidgetChartC19Line extends React.Component {
                 borderWidth: 1,
                 // Width of datapoint in line chart
                 pointRadius: 1,
-                data: this.extractDataSeriesAddZeros(casesByDate, locationObj["name"]),
+                data: this.extractSingleDataSeriesAndAddZeros(casesByDate, locationObj["name"]),
             });
             i = i + 1;
         });
@@ -271,7 +265,7 @@ class WidgetChartC19Line extends React.Component {
                                 },
                                 scaleLabel: {
                                     display: true,
-                                    labelString: "Confirmed Covid-19 Cases",
+                                    labelString: "Hospitalized per 10K",
                                     fontColor: this.props.theme.currentColorTheme.colorThemeFontDefault,
                                     fontSize: 16,
                                 },
